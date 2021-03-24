@@ -1,21 +1,21 @@
 import java.util.Iterator;
 
-public class Stack<T> implements Iterable<T>{
+public class Stack implements Iterable<Object>{
 
-    private LinkedList<T> linkedList;
+    private LinkedList linkedList;
 
     public Stack(){
-        linkedList = new LinkedList<>();
+        linkedList = new LinkedList();
     }
 
-    public Stack<T> push(T item){
+    public Stack push(Object item){
         linkedList.insertFirst(item);
 
         return this;
     }
 
-    public T pop(){
-        T item = linkedList.getFirst();
+    public Object pop(){
+        Object item = linkedList.getFirst();
 
         linkedList.deleteFirst();
 
@@ -30,7 +30,7 @@ public class Stack<T> implements Iterable<T>{
         return linkedList.isEmpty();  
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<Object> iterator(){
         return linkedList.iterator();
     }
 }

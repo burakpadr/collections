@@ -1,15 +1,15 @@
 import java.util.Iterator;
 
-public class Bag<T> implements Iterable<T>{
+public class Bag implements Iterable<Object>{
     
-    private T[] items;
+    private Object[] items;
     private int size;
 
     public Bag(){
-        items = (T[]) new Object[2];
+        items = new Object[2];
     }
 
-    public Bag<T> add(T item){
+    public Bag add(Object item){
         if (size >= items.length / 2)
             resize(items.length * 2);
         
@@ -28,7 +28,7 @@ public class Bag<T> implements Iterable<T>{
         return this;
     }
 
-    public Bag<T> delete(T item){
+    public Bag delete(Object item){
         int hash = getHash(item);
 
         while (items[hash] != null){
@@ -39,7 +39,7 @@ public class Bag<T> implements Iterable<T>{
                 hash = (hash + 1) % items.length;
     
                 while (items[hash] != null){
-                    T temp = items[hash];
+                    Object temp = items[hash];
     
                     items[hash] = null;
                     size--;
@@ -61,7 +61,7 @@ public class Bag<T> implements Iterable<T>{
         return null;
     }
 
-    public boolean contains(T item){
+    public boolean contains(Object item){
         int hash = getHash(item);
 
         while (items[hash] != null){
@@ -82,18 +82,14 @@ public class Bag<T> implements Iterable<T>{
         return size == 0;
     }
 
-    public Iterator<T> iterator(){
-        return new BagIterator();
-    }
-
-    private int getHash(T item){
+    private int getHash(Object item){
         return (items.hashCode() & 0x7fffffff) % items.length;
     }
 
     private void resize(int newSize){
-        T[] temp = items;
+        Object[] temp = items;
 
-        items = (T[]) new Object[newSize];
+        items = new Object[newSize];
 
         for (int i = 0; i < temp.length; i++)
             if (temp[i] != null){
@@ -103,13 +99,18 @@ public class Bag<T> implements Iterable<T>{
             }
     }
 
-    private class BagIterator implements Iterator<T>{
+    public Iterator<Object> iterator(){
+        return new BagIterator();
+    }
+
+
+    private class BagIterator implements Iterator<Object>{
         
-        T[] iteratorItems;
+        Object[] iteratorItems;
         int iteratorSize;
 
         public BagIterator(){
-            iteratorItems = (T[]) new Object[size];
+            iteratorItems = new Object[size];
 
             for (int i = 0; i < items.length; i++) 
                 if (items[i] != null){
@@ -124,7 +125,7 @@ public class Bag<T> implements Iterable<T>{
         }
 
         @Override
-        public T next(){
+        public Object next(){
             iteratorSize--;
 
             return iteratorItems[iteratorSize];

@@ -1,41 +1,41 @@
 import java.util.Iterator;
 
-public class List<T> implements Iterable<T>{
+public class List implements Iterable<Object>{
     
-    private LinkedList<T> linkedList;
+    private LinkedList linkedList;
 
     public List(){
-        linkedList = new LinkedList<>();
+        linkedList = new LinkedList();
     }
 
-    public List<T> append(T item){
+    public List append(Object item){
         linkedList.insertLast(item);
 
         return this;
     }
 
-    public List<T> delete(T item){
+    public List delete(Object item){
         if (linkedList.delete(item) == null)
             return null;
 
         return this;
     }
 
-    public List<T> delete(int index){
+    public List delete(int index){
         linkedList.deleteAt(index);
 
         return this;
     }
 
-    public T get(int index){
+    public Object get(int index){
         return linkedList.find(index);
     }
 
-    public int indexOf(T item){
+    public int indexOf(Object item){
         return linkedList.indexOf(item);
     }
 
-    public boolean contains(T item){
+    public boolean contains(Object item){
         return linkedList.contains(item);
     }
 
@@ -47,7 +47,7 @@ public class List<T> implements Iterable<T>{
         return linkedList.isEmpty();
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<Object> iterator(){
         return linkedList.iterator();
     }
 }

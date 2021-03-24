@@ -1,21 +1,21 @@
 import java.util.Iterator;
 
-public class Queue<T> implements Iterable<T>{
+public class Queue implements Iterable<Object>{
     
-    private LinkedList<T> linkedList;
+    private LinkedList linkedList;
 
     public Queue(){
-        linkedList = new LinkedList<>();
+        linkedList = new LinkedList();
     }
 
-    public Queue<T> enqueue(T item){
+    public Queue enqueue(Object item){
         linkedList.insertLast(item);
 
         return this;
     }
 
-    public T dequeue(){
-        T item = linkedList.getFirst();
+    public Object dequeue(){
+        Object item = linkedList.getFirst();
 
         linkedList.deleteFirst();
 
@@ -30,7 +30,7 @@ public class Queue<T> implements Iterable<T>{
         return linkedList.isEmpty();
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<Object> iterator(){
         return linkedList.iterator();
     }
 }

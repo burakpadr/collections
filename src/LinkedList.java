@@ -1,19 +1,19 @@
 import java.util.Iterator;
 
-public class LinkedList<T> implements Iterable<T>{
+public class LinkedList implements Iterable<Object>{
     
     private class Node{
-        T item;
+        Object item;
         Node prev;
         Node next;
 
-        public Node(T item, Node prev, Node next){
+        public Node(Object item, Node prev, Node next){
             this.item = item;
             this.prev = prev;
             this.next = next;
         }
 
-        public T getItem(){
+        public Object getItem(){
             return item;
         }
 
@@ -25,7 +25,7 @@ public class LinkedList<T> implements Iterable<T>{
             return next;
         }
 
-        public Node setItem(T item){
+        public Node setItem(Object item){
             this.item = item;
 
             return this;
@@ -48,7 +48,7 @@ public class LinkedList<T> implements Iterable<T>{
     private Node last;
     private int size;
 
-    public LinkedList<T> insertFirst(T item){
+    public LinkedList insertFirst(Object item){
         Node newNode = new Node(item, null, first);
 
         if (last == null)
@@ -64,7 +64,7 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     }
 
-    public LinkedList<T> insertLast(T item){
+    public LinkedList insertLast(Object item){
         Node newNode = new Node(item, null, null);
 
         if (first == null)
@@ -80,7 +80,7 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     }
 
-    public LinkedList<T> insertAt(T item, int position){
+    public LinkedList insertAt(Object item, int position){
         if (position < 0 || position > size)
             throw new IndexOutOfBoundsException(String.format("%s: %d <= %s <= %d", "Position must be between like that", 0, "Position", size));
         else if (position == 0)
@@ -104,7 +104,7 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     }
 
-    public LinkedList<T> deleteFirst(){
+    public LinkedList deleteFirst(){
         if (first.getNext() != null){
             first.getNext().setPrev(null);
             first = first.getNext();
@@ -119,7 +119,7 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     } 
     
-    public LinkedList<T> deleteLast(){
+    public LinkedList deleteLast(){
         if (last.getPrev() != null){
             last.getPrev().setNext(null);
             last = last.getPrev();
@@ -132,7 +132,7 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     }
 
-    public LinkedList<T> deleteAt(int position){
+    public LinkedList deleteAt(int position){
         if (isEmpty())
             throw new NullPointerException("The linked list is empty!");
         else if (position < 0 || position >= size)
@@ -156,7 +156,7 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     }
 
-    public LinkedList<T> delete(T item){
+    public LinkedList delete(Object item){
         int itemIndex = indexOf(item);
 
         if (itemIndex == -1)
@@ -167,15 +167,15 @@ public class LinkedList<T> implements Iterable<T>{
         return this;
     }
 
-    public T getFirst(){
+    public Object getFirst(){
         return first.getItem();
     }
 
-    public T getLast(){
+    public Object getLast(){
         return last.getItem();
     }
 
-    public T find(int position){
+    public Object find(int position){
         if (isEmpty())
             throw new NullPointerException("The linked list is empty!");
         else if (position < 0 || position >= size)
@@ -194,7 +194,7 @@ public class LinkedList<T> implements Iterable<T>{
         }
     }
 
-    public int indexOf(T item){
+    public int indexOf(Object item){
         int index = 0;
 
         for (Node temp = first; temp != null; temp = temp.getNext()){
@@ -207,7 +207,7 @@ public class LinkedList<T> implements Iterable<T>{
         return -1;
     }
 
-    public boolean contains(T item){
+    public boolean contains(Object item){
         for (Node temp = first; temp != null; temp = temp.getNext())
             if (temp.getItem() == item)
                 return true;
@@ -215,19 +215,19 @@ public class LinkedList<T> implements Iterable<T>{
         return false;
     }
 
-    public LinkedList<T> setFirst(T item){
+    public LinkedList setFirst(Object item){
         first.setItem(item);
 
         return this;
     }
 
-    public LinkedList<T> setLast(T item){
+    public LinkedList setLast(Object item){
         last.setItem(item);
 
         return this;
     }
 
-    public LinkedList<T> setAt(T item, int position){
+    public LinkedList setAt(Object item, int position){
         if (isEmpty())
             throw new NullPointerException("The linked list is empty!");
         else if (position < 0 || position >= size)
@@ -256,11 +256,11 @@ public class LinkedList<T> implements Iterable<T>{
         return first == null;
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<Object> iterator(){
         return new LinkedListIterator();
     }
 
-    private class LinkedListIterator implements Iterator<T>{
+    private class LinkedListIterator implements Iterator<Object>{
 
         Node iteratorFirst = first;
 
@@ -270,8 +270,8 @@ public class LinkedList<T> implements Iterable<T>{
         }
 
         @Override
-        public T next(){
-            T item = iteratorFirst.getItem();
+        public Object next(){
+            Object item = iteratorFirst.getItem();
 
             iteratorFirst = iteratorFirst.getNext();
 

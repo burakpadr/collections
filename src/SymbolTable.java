@@ -1,21 +1,21 @@
 import java.util.Iterator;
 
-public class SymbolTable<K, V> {
+public class SymbolTable{
     
-    private K[] keys;
-    private V[] values;
+    private Object[] keys;
+    private Object[] values;
     private int size;
 
-    private int getHash(K key){
+    private int getHash(Object key){
         return (key.hashCode() & 0x7fffffff) % keys.length;
     }
 
     private void resize(int newSize){
-        K[] keysTemp = keys;
-        V[] valuesTemp = values;
+        Object[] keysTemp = keys;
+        Object[] valuesTemp = values;
 
-        keys = (K[]) new Object[newSize];
-        values = (V[]) new Object[newSize];
+        keys = new Object[newSize];
+        values = new Object[newSize];
 
         for (int i = 0; i < keysTemp.length; i++)
             if (keysTemp[i] != null){
@@ -26,11 +26,11 @@ public class SymbolTable<K, V> {
     }
 
     public SymbolTable(){
-        keys = (K[]) new Object[2];
-        values = (V[]) new Object[2];
+        keys = new Object[2];
+        values = new Object[2];
     }
 
-    public SymbolTable<K, V> put(K key, V value){
+    public SymbolTable put(Object key, Object value){
         if (size >= keys.length / 2)
             resize(keys.length * 2);
 
@@ -53,7 +53,7 @@ public class SymbolTable<K, V> {
         return this;
     }
 
-    public V get(K key){
+    public Object get(Object key){
         int hash = getHash(key);
 
         while (keys[hash] != null){
@@ -66,7 +66,7 @@ public class SymbolTable<K, V> {
         return null;
     }
 
-    public SymbolTable<K, V> delete(K key){
+    public SymbolTable delete(Object key){
         int hash = getHash(key);
 
         while (keys[hash] != null){
@@ -78,8 +78,8 @@ public class SymbolTable<K, V> {
                 hash = (hash + 1) % keys.length;
 
                 while (keys[hash] != null){
-                    K keyTemp = keys[hash];
-                    V valueTemp = values[hash];
+                    Object keyTemp = keys[hash];
+                    Object valueTemp = values[hash];
 
                     keys[hash] = null;
                     values[hash] = null;
@@ -102,7 +102,7 @@ public class SymbolTable<K, V> {
         return null;
     }
 
-    public boolean contains(K key){
+    public boolean contains(Object key){
         int hash = getHash(key);
 
         while (keys[hash] != null){
@@ -123,20 +123,20 @@ public class SymbolTable<K, V> {
         return size == 0;
     }
 
-    public Iterator<K> keys(){
-        return new SymbolTableIterator<K>(keys);
+    public Iterator<Object> keys(){
+        return new SymbolTableIterator(keys);
     }
 
-    public Iterator<V> values(){
-        return new SymbolTableIterator<V>(values);
+    public Iterator<Object> values(){
+        return new SymbolTableIterator(values);
     }
 
-    private class SymbolTableIterator<T> implements Iterator<T>{
-        private T[] iteratorItems;
+    private class SymbolTableIterator implements Iterator<Object>{
+        private Object[] iteratorItems;
         private int iteratorSize;
 
-        public SymbolTableIterator(T[] items){
-            iteratorItems = (T[]) new Object[size];
+        public SymbolTableIterator(Object[] items){
+            iteratorItems = new Object[size];
             
             for (int i = 0; i < items.length; i++) {
                 if (items[i] != null){
@@ -152,7 +152,7 @@ public class SymbolTable<K, V> {
         }
 
         @Override
-        public T next(){
+        public Object next(){
             iteratorSize--;
 
             return iteratorItems[iteratorSize];
