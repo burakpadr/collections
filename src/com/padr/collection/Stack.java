@@ -1,20 +1,22 @@
+package com.padr.collection;
+
 import java.util.Iterator;
 
-public class Queue implements Iterable<Object>{
-    
+public class Stack implements Iterable<Object>{
+
     private LinkedList linkedList;
 
-    public Queue(){
+    public Stack(){
         linkedList = new LinkedList();
     }
 
-    public Queue enqueue(Object item){
-        linkedList.insertLast(item);
+    public Stack push(Object item){
+        linkedList.insertFirst(item);
 
         return this;
     }
 
-    public Object dequeue(){
+    public Object pop(){
         Object item = linkedList.getFirst();
 
         linkedList.deleteFirst();
@@ -22,12 +24,12 @@ public class Queue implements Iterable<Object>{
         return item;
     }
 
-    public int getSize(){
+    public long getSize(){
         return linkedList.getSize();
     }
 
     public boolean isEmpty(){
-        return linkedList.isEmpty();
+        return linkedList.isEmpty();  
     }
 
     public Iterator<Object> iterator(){

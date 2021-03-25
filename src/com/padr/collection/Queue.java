@@ -1,20 +1,23 @@
+package com.padr.collection;
+
+
 import java.util.Iterator;
 
-public class Stack implements Iterable<Object>{
-
+public class Queue implements Iterable<Object>{
+    
     private LinkedList linkedList;
 
-    public Stack(){
+    public Queue(){
         linkedList = new LinkedList();
     }
 
-    public Stack push(Object item){
-        linkedList.insertFirst(item);
+    public Queue enqueue(Object item){
+        linkedList.insertLast(item);
 
         return this;
     }
 
-    public Object pop(){
+    public Object dequeue(){
         Object item = linkedList.getFirst();
 
         linkedList.deleteFirst();
@@ -22,12 +25,12 @@ public class Stack implements Iterable<Object>{
         return item;
     }
 
-    public long getSize(){
+    public int getSize(){
         return linkedList.getSize();
     }
 
     public boolean isEmpty(){
-        return linkedList.isEmpty();  
+        return linkedList.isEmpty();
     }
 
     public Iterator<Object> iterator(){

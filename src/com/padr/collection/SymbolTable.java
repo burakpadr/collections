@@ -1,3 +1,5 @@
+package com.padr.collection;
+
 import java.util.Iterator;
 
 public class SymbolTable{

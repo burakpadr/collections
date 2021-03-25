@@ -1,15 +1,17 @@
+package com.padr.collection;
+
 import java.util.Iterator;
 
-public class MinPriorityQueue<T extends Comparable<T>> implements Iterable<T>{
-    
+public class MaxPriorityQueue<T extends Comparable<T>> implements Iterable<T>{
+
     private T[] binaryTree;
     private int size;
 
-    public MinPriorityQueue(){
+    public MaxPriorityQueue(){
         binaryTree = (T[]) new Comparable[2];
     }
 
-    public MinPriorityQueue<T> enqueue(T item){
+    public MaxPriorityQueue<T> enqueue(T item){
         if (size >= binaryTree.length / 2)
             resize(binaryTree.length * 2);
         
@@ -21,7 +23,7 @@ public class MinPriorityQueue<T extends Comparable<T>> implements Iterable<T>{
         return this;
     }
 
-    public T popMin(){
+    public T popMax(){
         swap(1, size);
 
         T item = binaryTree[size];
@@ -49,7 +51,7 @@ public class MinPriorityQueue<T extends Comparable<T>> implements Iterable<T>{
         for (int i = size; i > 1; i /= 2) {
             int indexOfCompare = i / 2;
 
-            if (binaryTree[i].compareTo(binaryTree[indexOfCompare]) < 0)
+            if (binaryTree[i].compareTo(binaryTree[indexOfCompare]) > 0)
                 swap(i, indexOfCompare);
             else
                 return;
@@ -62,9 +64,9 @@ public class MinPriorityQueue<T extends Comparable<T>> implements Iterable<T>{
 
         while (indexOfCompare <= size){
             if (indexOfCompare + 1 <= size)
-                indexOfCompare += binaryTree[indexOfCompare + 1].compareTo(binaryTree[indexOfCompare]) < 0 ? 1: 0;  
+                indexOfCompare += binaryTree[indexOfCompare + 1].compareTo(binaryTree[indexOfCompare]) > 0 ? 1: 0;  
             
-            if (binaryTree[indexOfParent].compareTo(binaryTree[indexOfCompare]) > 0)
+            if (binaryTree[indexOfParent].compareTo(binaryTree[indexOfCompare]) < 0)
                 swap(indexOfParent, indexOfCompare);
             else
                 return;
@@ -91,28 +93,28 @@ public class MinPriorityQueue<T extends Comparable<T>> implements Iterable<T>{
     }
 
     public Iterator<T> iterator(){
-        return new MinPriorityQueueIterator();
+        return new MaxPriorityQueueIterator();
     }
 
-    private class MinPriorityQueueIterator implements Iterator<T>{
+    private class MaxPriorityQueueIterator implements Iterator<T>{
 
-        private MinPriorityQueue<T> iteratorMinPQ;
+        private MaxPriorityQueue<T> iteratorMaxPQ;
 
-        public MinPriorityQueueIterator(){
-            iteratorMinPQ = new MinPriorityQueue<>();
+        public MaxPriorityQueueIterator(){
+            iteratorMaxPQ = new MaxPriorityQueue<>();
 
             for (int i = 1; i <= getSize(); i++)
-                iteratorMinPQ.enqueue(binaryTree[i]);
+                iteratorMaxPQ.enqueue(binaryTree[i]);
         }
 
         @Override
         public boolean hasNext(){
-            return !iteratorMinPQ.isEmpty();
+            return !iteratorMaxPQ.isEmpty();
         }
 
         @Override
         public T next(){
-            return iteratorMinPQ.popMin();
+            return iteratorMaxPQ.popMax();
         }
     }
 }
